@@ -20,11 +20,11 @@ While doing this exercise we will also see how to generate replicable and custom
 Before starting, make sure you have pulled the [exercise files](https://github.com/InseadDataAnalytics/INSEADAnalytics/tree/master/Exercises/Exerciseset1)  on your github repository (if you pull the course github repository you also get the exercise set files automatically). Moreover, make sure you are in the directory of this exercise. Directory paths may be complicated, and sometimes a frustrating source of problems, so it is recommended that you use these R commands to find out your current working directory and, if needed, set it where you have the main files for the specific exercise/project (there are other ways, but for now just be aware of this path issue). For example, assuming we are now in the "MYDIRECTORY/INSEADAnalytics" directory, we can do these: 
 
 ```{r echo=TRUE, eval=FALSE, tidy=TRUE}
-#getwd()
+getwd()
 
-#setwd("Exercises/Exerciseset1/")
+setwd("Exercises/Exerciseset1/")
 
-#list.files()
+list.files()
 ```
 
 **Note:** you can always use the `help` command in Rstudio to find out about any R function (e.g. type `help(list.files)` to learn what the R function `list.files` does).
@@ -69,15 +69,16 @@ For more information on downloading finance data from the internet as well as on
 
 We have `r nrow(StockReturns)` days of data, starting from `r rownames(StockReturns)[1]` until `r tail(rownames(StockReturns),1)`.  Here are some basic statistics about the S&P returns:
 
-1. The cumulative returns of the S&P index during this period is `r round(100*sum(StockReturns[,1]),1)`%.
-2. The average daily returns of the S&P index during this period is `r round(100*mean(StockReturns[,1]),3)`%;
-2. The standard deviation of the daily returns of the S&P index during this period is `r round(100*sd(StockReturns[,1]),3)`%;
+1. The cumulative returns of the S&P index during this period is `r round(100*sum(StockReturns[,2]),1)`%.
+2. The average daily returns of the S&P index during this period is `r round(100*mean(StockReturns[,2]),3)`%;
+2. The standard deviation of the daily returns of the S&P index during this period is `r round(100*sd(StockReturns[,2]),3)`%;
 
 Here are returns of the S&P in this period (note the use of the helper function pnl_plot - defined in file helpersSet1.R):
 
 ```{r echo=FALSE, comment=NA, warning=FALSE, message=FALSE,results='asis',fig.align='center', fig.height=4,fig.width= 6, fig=TRUE}
 SPY = StockReturns[,"SPY"]
 pnl_plot(SPY)
+
 ```
 
 #### Questions
@@ -87,8 +88,8 @@ pnl_plot(SPY)
 3. *(Extra points)* What if we want to also see the returns of another company, say Yahoo!, in the same period? Can you get that data and report the statistics for Yahoo!'s stock, too? 
 
 **Your Answers here:**
-<br>
-<br>
+<br>1, Because in dataSet1.R file mytickers contains two data, the 1st is SPY and the 2nd is AAPL
+<br>2, 595.5 , 0.148, 2.39
 <br>
 <br>
 
