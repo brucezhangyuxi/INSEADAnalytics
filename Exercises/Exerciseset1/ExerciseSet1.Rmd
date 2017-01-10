@@ -118,6 +118,13 @@ For example, we can now quickly estimate the average returns of S&P and Apple (o
 portfolio = apply(StockReturns,1,mean)
 names(portfolio) <- rownames(StockReturns)
 pnl_plot(portfolio)
+
+
+transposedData = t(StockReturns)
+portfolio = apply(transposedData,2,mean)
+pnl_plot(portfolio)
+
+
 ```
 
 
@@ -129,10 +136,12 @@ We can also transpose the matrix of returns to create a new "horizontal" matrix.
 2. Based on the help for the R function *apply* (help(apply)`), can you create again the portfolio of S&P and Apple and plot the returns in a new figure below?
 
 **Your Answers here:**
-<br>
-<br>
-<br>
-<br>
+<br>1,
+<br>after transposedData = t(StockReturns), we can use nrow(transposedData) to calulate the rows and ncol(transposedData) to calculate the columns
+<br>2, Yes
+<br>transposedData = t(StockReturns)
+<br>portfolio = apply(transposedData,2,mean)
+<br>pnl_plot(portfolio)
 
 <hr>
 <hr>
