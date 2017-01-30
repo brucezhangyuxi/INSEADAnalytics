@@ -315,9 +315,11 @@ How does this compare with **existing CTA products** such as [this one from Soci
 <br>
 
 **Your Answers here:**
+<br>1. The code takes many moving averages signals and let them vote with their sign (long or short), and allocated investment based on this. 
+
+<br>2. Change in this comand line (from MAfreq<-seq(10,250,by=20) to MAfreq<-seq(10,500,by=20) ) changes the approach for portfolio composition, we have return like Ret:5.7, Vol:7.7, Sharpe:0.74, DD: 21.9  
 <br>
-<br>
-<br>
+
 <br>
 
 
