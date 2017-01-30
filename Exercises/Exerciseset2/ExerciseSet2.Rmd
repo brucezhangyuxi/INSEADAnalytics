@@ -62,6 +62,7 @@ Let's load the data and see what we have.
 source("helpersSet2.R")
 library(googleVis)
 load("data/FuturesTrendFollowingData.Rdata")
+
 ```
 
 <br>
@@ -165,11 +166,76 @@ print(m1,'chart')
 <br>
 
 **Your Answers here:**
-<br>
-<br>
-<br>
-<br>
+<br>1, 6
+<br>2, 14.4
+<br>3, The most influencial factors are US and Europe bond market, followed by some major European and Asian currency,  then is the stock index in US and Europe, followed by oil, metal and commodity, JP and HK index 
+<br>4, 
 
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+futures_data_PC = futures_data[row.names(futures_data)>"2002-11-01"&row.names(futures_data)<"2007-10-01",]
+futures_data_CR = futures_data[row.names(futures_data)>"2007-10-01"&row.names(futures_data)<"2009-03-01",]
+```
+
+Table for pre-crisis period.
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+Variance_Explained_Table_results_PC<-PCA(futures_data_PC, graph=FALSE)
+Variance_Explained_Table_PC<-cbind(paste("component",1:ncol(futures_data_PC),sep=" "),Variance_Explained_Table_results_PC$eig)
+Variance_Explained_Table_PC<-as.data.frame(Variance_Explained_Table_PC)
+colnames(Variance_Explained_Table_PC)<-c("Component","Eigenvalue", "Percentage_of_explained_variance", "Cumulative_percentage_of_explained_variance")
+```
+
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+show_data_PC = data.frame(Variance_Explained_Table_PC)
+m1_PC<-gvisTable(show_data_PC,options=list(width=1920, height=min(400,27*(nrow(show_data_PC)+1)),allowHTML=TRUE,page='disable'),formats=list(Eigenvalue="#.##",Percentage_of_explained_variance="#.##",Cumulative_percentage_of_explained_variance="#.##"))
+print(m1_PC,'chart')
+```
+
+
+Chart for pre-crisis period.
+
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+eigenvalues_PC  <- Variance_Explained_Table_PC[,2]
+```
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+df           <- cbind(as.data.frame(eigenvalues_PC), c(1:length(eigenvalues_PC)), rep(1, length(eigenvalues_PC)))
+colnames(df) <- c("eigenvalues", "components", "abline")
+Line_PC         <- gvisLineChart(as.data.frame(df), xvar="components", yvar=c("eigenvalues","abline"), options=list(title='Scree plot', legend="right", width=900, height=600, hAxis="{title:'Number of Components', titleTextStyle:{color:'black'}}", vAxes="[{title:'Eigenvalues'}]",  series="[{color:'green',pointSize:3, targetAxisIndex: 0}]"))
+print(Line_PC, 'chart')
+```
+
+
+Table for crisis data.
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+Variance_Explained_Table_results_CR<-PCA(futures_data_CR, graph=FALSE)
+Variance_Explained_Table_CR<-cbind(paste("component",1:ncol(futures_data_CR),sep=" "),Variance_Explained_Table_results_CR$eig)
+Variance_Explained_Table_CR<-as.data.frame(Variance_Explained_Table_CR)
+colnames(Variance_Explained_Table_CR)<-c("Component","Eigenvalue", "Percentage_of_explained_variance", "Cumulative_percentage_of_explained_variance")
+```
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+show_data_CR = data.frame(Variance_Explained_Table_CR)
+m1_CR<-gvisTable(show_data_CR,options=list(width=1920, height=min(400,27*(nrow(show_data_CR)+1)),allowHTML=TRUE,page='disable'),formats=list(Eigenvalue="#.##",Percentage_of_explained_variance="#.##",Cumulative_percentage_of_explained_variance="#.##"))
+print(m1_CR,'chart')
+```
+
+Chart for crisis period.
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+eigenvalues_CR  <- Variance_Explained_Table_CR[,2]
+```
+
+```{r echo=TRUE, eval=TRUE, comment=NA, warning=FALSE,error=FALSE, message=FALSE, prompt=FALSE, tidy=TRUE}
+df           <- cbind(as.data.frame(eigenvalues_CR), c(1:length(eigenvalues_CR)), rep(1, length(eigenvalues_CR)))
+colnames(df) <- c("eigenvalues", "components", "abline")
+Line_CR         <- gvisLineChart(as.data.frame(df), xvar="components", yvar=c("eigenvalues","abline"), options=list(title='Scree plot', legend="right", width=900, height=600, hAxis="{title:'Number of Components', titleTextStyle:{color:'black'}}", vAxes="[{title:'Eigenvalues'}]",  series="[{color:'green',pointSize:3, targetAxisIndex: 0}]"))
+print(Line_CR, 'chart')
+```
+<br>
 
 <hr>
 

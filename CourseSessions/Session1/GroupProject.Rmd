@@ -1,0 +1,25 @@
+---
+title: "GroupProject"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+GroupProjectData <- read.csv ("data/Boats.csv" , sep =";")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction 
+
+this is our group project
+
+## Data
+
+You can also embed plots, for example: 
+
+```{r pressure, echo=FALSE}
+hist(GroupProjectData [,2])
+``` 
+

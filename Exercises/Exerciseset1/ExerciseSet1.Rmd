@@ -119,12 +119,6 @@ portfolio = apply(StockReturns,1,mean)
 names(portfolio) <- rownames(StockReturns)
 pnl_plot(portfolio)
 
-
-#transposedData = t(StockReturns)
-#portfolio = apply(transposedData,2,mean)
-#pnl_plot(portfolio)
-
-
 ```
 
 
@@ -156,7 +150,7 @@ This is an important step and will get you to think about the overall process on
 2. *(Extra Exercise)*  Can you get the returns of a few companies and plot the returns of an equal weighted portfolio with those companies during some period you select? 
 
 **Your Answers here:**
-<br>
+<br>1. In data.R, the starting date is already 2001-01-01
 <br>
 <br>
 <br>
@@ -191,7 +185,7 @@ myData + StockReturns[1:40,]
 
 **Your Answers here:**
 <br>1. 
-<br>It shows 20
+<br>It shows 20 , the Sum of the data in myData that is not the same as the first 20 data in StockReturns. In fact, none of the data is the same because of different data format, that's why it returns 1 in each row. 
 <br>
 <br>2. There is error, because the two array have different length, they can't perform numberial operation
 
