@@ -1,6 +1,6 @@
 ---
 title: "A Market Segmentation and Purchase Drivers Process"
-author: "T. Evgeniou"
+author: "Jaime ANDALUZ, Fazril MUSTAPA, Isha SINGH, Bruce ZHANG"
 output:
   html_document:
     css: ../../AnalyticsStyles/default.css
@@ -143,7 +143,7 @@ iprint.df(round(my_summary(ProjectDataFactor), 2))
 
 ## Step 3: Check Correlations
 
-This is the correlation matrix of the customer responses to the `r ncol(ProjectDataFactor)` attitude questions - which are the only questions that we will use for the segmentation (see the case):
+This is the correlation matrix of the customer responses to the `r ncol(ProjectDataFactor)` attitude questions - which are the only questions that w  e will use for the segmentation (see the case):
 
 ```{r}
 thecor = round(cor(ProjectDataFactor),2)
@@ -157,16 +157,10 @@ iprint.df(round(thecor,2), scale=TRUE)
 
 **Answers:**
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+1. Yes, we see high correlations between the following questions - 13&14(0.63), 16&17(0.62),28&16 (0.5), 28&20 (0.52), 26&22 (0.5), 20&16 (0.52), 9&3(0.5), 7&6(0.5), 26&9(0.5), 28&16(0.5), 20&27, 20&28
+
+2. The correlations imply that the questions have the same underlying factor / meaning.
+
 
 ## Step 4: Choose number of factors
 
@@ -213,16 +207,12 @@ iplot.df(melt(df, id="components"))
 
 **Answers**
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+1. The table explains how well the components describe the whole data in order to clear up less correlated components and extract meaningful implications.
+
+2. By the nature of the function, the line is decreasing. The shape is shaped this way because the first few components have more weights in explaning the data, which is why the line gets flatter. Therefore the shape cannot be increasing.
+
+3. We want to see fewer yet significant componenets (a few components can explain most of the data). 
+
 
 ## Step 5: Interpret the factors
 
@@ -271,16 +261,14 @@ iprint.df(Rotated_Factors_thres, scale=TRUE)
 
 **Answers**
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+* Personal interest and passion in boating, it means that people who buy the boats are those who are really passionate about boating. Self motivation and interest play big parts to drive sales.
+
+* We selected 5 factors, which include self fulfillment, lifestyle, brand percention, knowledge/expertise in boating, and price sensitivity.
+
+* There factors are personality traits of people who buy our boats. The customers can then be segmented using these traits.
+
+* There is a lot of business judgment and intuition that is needed to interpret the data. Just seeing the data alone would not be enough to help us in making decisions.
+
 
 ## Step 6:  Save factor scores 
 
@@ -300,16 +288,20 @@ iprint.df(t(head(NEW_ProjectData, 10)), scale=TRUE)
 
 **Answers**
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+1. These types of customers are 
+    Status Conscious
+    Adventurous
+    Brand Conscious 
+    DIY
+    Price Sensitive
+
+2.  Status Conscious - Q9
+    Adventurous - Q18
+    Brand Conscious - Q4
+    DIY - Q11
+    Price Sensitive - Q3
+
+
 
 <hr>\clearpage
 
@@ -329,14 +321,14 @@ A key family of methods used for segmentation is what is called **clustering met
 ```{r setupcluster, echo=TRUE, tidy=TRUE}
 # Please ENTER then original raw attributes to use for the segmentation (the "segmentation attributes")
 # Please use numbers, not column names, e.g. c(1:5, 7, 8) uses columns 1,2,3,4,5,7,8
-segmentation_attributes_used = c(28,25,27,14,20) #c(10,19,5,12,3) 
+segmentation_attributes_used = c(10,19,5,12,3) #c(10,19,5,12,3) 
 
 # Please ENTER then original raw attributes to use for the profiling of the segments (the "profiling attributes")
 # Please use numbers, not column names, e.g. c(1:5, 7, 8) uses columns 1,2,3,4,5,7,8
 profile_attributes_used = c(2:82) 
 
 # Please ENTER the number of clusters to eventually use for this report
-numb_clusters_used = 3 # for boats possibly use 5, for Mall_Visits use 3
+numb_clusters_used = 5 # for boats possibly use 5, for Mall_Visits use 3
 
 # Please enter the method to use for the segmentation:
 profile_with = "hclust" #  "hclust" or "kmeans"
@@ -378,8 +370,6 @@ ProjectData_scaled <- apply(ProjectData, 2, function(r) if (sd(r)!=0) (r-mean(r)
 ## Step 3. Select Segmentation Variables
 
 For simplicity will use one representative question for each of the factor we found in Part 1 (we can also use the "factor scores" for each respondent) to represent our survey respondents. These are the `segmentation_attributes_used` selected below. We can choose the question with the highest absolute factor loading for each factor. For example, when we use 5 factors with the varimax rotation we can select questions Q.1.9 (I see my boat as a status symbol), Q1.18 (Boating gives me a feeling of adventure), Q1.4 (I only consider buying a boat from a reputable brand), Q1.11 (I tend to perform minor boat repairs and maintenance on my own) and Q1.2 (When buying a boat  getting the lowest price is more important than the boat brand) - try it. These are columns 10, 19, 5, 12, and 3, respectively of the data matrix `Projectdata`. 
-
-
 ## Step 4: Define similarity measure
 
 We need to define a distance metric that measures how different people (observations in general) are from each other. This can be an important choice. Here are the differences between the observations using the distance metric we selected:
@@ -521,16 +511,16 @@ iprint.df(round(cluster_profile_ratios-1, 2))
 
 **Answers**
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+1. The numbers in the last table indicate how the different segments, on average, are different from the population mean on each of the different question. So if it is a large positive number, the particular question is significantly important for that segment.
+
+2. We can see that based on the table and snake plot, segments 1,2, and 4 have similar responses and segments 3 and 5 are also clustered together
+
+  Component 1: Status - Q11, performing repairs is strongly negative (-.41) 
+  Component 2: Adventure - Q9, seeing boat as a status symbol is very negative (-.27) 
+  Component 4: DIY - Q2, Price sensitivity over brand is very positive (.23)
+
+  Component 3: Brand - Q9, seeing boat as a status symbol is very positive (.39) 
+  Component 5: Price Sensitive - Q2, Price sensitivity over brand is very positive (.48)
 
 ## Step 8: Robustness Analysis
 
@@ -545,16 +535,15 @@ We should also consider the robustness of our analysis as we change the clusteri
 
 **Answers**
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+1. The number of segments are subjective, but we selected five. This is on the basis of the "distance" plot, whereby the scree is about at 5 factors.
+
+2. The segments that we found are Status, Adventure, Brand, DIY, and Price Conscious.
+    
+    
+3. If we change the number of factors, the number of identifiable segments will probably change because now there are more combinations between the factors.
+
+4. 
+
 
 <hr>\clearpage
 
